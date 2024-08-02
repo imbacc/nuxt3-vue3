@@ -1,21 +1,11 @@
-FROM node:16.15.0 as builder
+FROM node:latest
 
-ENV WORKDIR=/vite2-vue3
-
+ENV WORKDIR=/nuxt-vue3
 WORKDIR $WORKDIR
 
-COPY ./ $WORKDIR/
+COPY --from=builder ../.output .
+COPY --from=builder ../ecosystem.config.js .
 
-ARG version
-ENV COMMITID=$version
+RUN npm install pm2 -g
 
-RUN npm i -g pnpm && pnpm install && pnpm build
-
-FROM nginx:alpine as prod
-
-RUN mkdir /soybean
-
-COPY --from=builder /vite2-vue3/dist /vite2-vue3
-COPY --from=builder /vite2-vue3/docker/nginx.conf /etc/nginx/nginx.conf
-
-EXPOSE 80
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]

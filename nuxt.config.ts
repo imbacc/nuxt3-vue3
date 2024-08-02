@@ -16,6 +16,7 @@ const __APP_INFO__ = {
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: `2024-01-01`,
   modules: [
     '@vueuse/nuxt',
     '@unocss/nuxt',

@@ -21,7 +21,8 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "up": "taze",
-    "up:max": "taze major"
+    "up:max": "taze major",
+    "dkbuild": "npm run build && cd ./docker && docker build -t nuxt-app ."
   },
   "dependencies": {
     "@vueuse/core": "^10.11.0",
